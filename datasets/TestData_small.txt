@@ -1,0 +1,26 @@
+ABSTRACT 
+In Westerman’s [12] disruptive article, “Quantitative research as ? 
+an interpretive enterprise: The mostly unacknowledged role of. 
+interpretation in research efforts and suggestions for explicitly 
+interpretive quantitative investigations,” he invited qualitative 
+researchers in psychology to adopt quantitative methods into 
+interpretive inquiry, given that they were as capable as qualitative 
+measures in producing meaning-laden results. The objective of 
+this article is to identify Westerman’s [12] key arguments and 
+apply them to the practice of Learning Analytics in educational 
+interventions. The primary implication for Learning Analytics 
+practitioners is the need to interpret quantitative analysis 
+procedures at every phase from philosophy to conclusions. 
+Furthermore, Learning Analytics practitioners and consumers 
+must critically examine any assumption that suggests quantitative 
+methodologies in Learning Analytics are inherently objective or 
+that Learning Analytics algorithms may replace judgment rather 
+than aid it. Lastly we propose a method for making observational 
+data in virtual environments concrete through nested models.   
+
+
+In traditional cognitive science inquiry, measurement almost 
+always involves significant levels of abstraction away from the 
+phenomena of interest. Usually, observable behavior is of interest 
+because it is assumed to indicate cognitive phenomena. For 
+example, in learning measurement, the factors of interest are 
