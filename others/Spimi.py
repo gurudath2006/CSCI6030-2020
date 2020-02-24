@@ -1,0 +1,50 @@
+# One step memory indexation -> SPIMI algorithm #
+
+from string import ascii_uppercase,ascii_lowercase,digits
+from random import choice
+try: from cPickle import HIGHEST_PROTOCOL,dump,load
+except: from pickle import HIGHEST_PROTOCOL,dump,load
+from sys import argv
+
+def spimi_invert(token_stream):
+	with open("".join(choice(ascii_uppercase+ascii_lowercase+digits) for _ in xrange(10))+".bin","wb") as output_file:
+		dictionary = {}
+		for token in token_stream:
+			term,docid = token[0],token[1]
+			if term not in dictionary: postings_list = add_to_dictionary(dictionary,term)
+			else: postings_list = get_postings_list(dictionary,term)
+			add_to_postings_list(postings_list,docid)
+		sorted_terms = sorted(dictionary,key = lambda tup: tup[0],reverse=True)
+		save_object(sorted_terms,output_file)
+		save_object(dictionary,output_file)
+	output_file.close()
+
+def add_to_dictionary(dictionary,term):
+	dictionary[term] = []
+	return dictionary[term]
+def get_postings_list(dictionary,term): return dictionary[term]	
+def add_to_postings_list(postings_list,docid): postings_list.insert(0,docid) if docid not in postings_list else postings_list
+
+# Persistence #
+def save_object(object,fd): dump(object,fd,HIGHEST_PROTOCOL)
+def load_object(source):
+	with open(source,'rb') as fd: obj = load(fd)
+	fd.close()
+	return obj
+
+# Simplified corpus process #
+def spimi_corpus_process(path_corpus,file_names,block_size):
+	from nltk.corpus import PlaintextCorpusReader
+	wordlists = PlaintextCorpusReader(path_corpus,file_names,encoding='latin-1')
+	block     = []
+	for fileid in wordlists.fileids(): 
+		docid = fileid[:fileid.rfind(".")][-1:]
+		block += [(word,docid) for word in wordlists.words(fileid)]
+	while len(block)!=0:
+		try: count = spimi_invert([block.pop() for x in xrange(block_size)])
+		except IndexError as ie: pass	
+			
+
+if __name__ == '__main__':
+	if len(argv)<4: print "Usage spimi.py [corpus_path] [block_size] [file1,...,fileN] "; exit()
+	else: spimi_corpus_process(argv[1],argv[3:],int(argv[2]))
